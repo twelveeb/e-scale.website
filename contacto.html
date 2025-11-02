@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<link rel="manifest" href="manifest.webmanifest">
+<!-- iOS Splash Screens -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="E-Scale">
+<link rel="apple-touch-icon" href="logobg.png">
+
+<!-- Splash screens para diferentes tamanhos de iPhone -->
+<link rel="apple-touch-startup-image" href="splash-640x1136.png"
+  media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)">
+<link rel="apple-touch-startup-image" href="splash-750x1334.png"
+  media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)">
+<link rel="apple-touch-startup-image" href="splash-828x1792.png"
+  media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)">
+<link rel="apple-touch-startup-image" href="splash-1125x2436.png"
+  media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)">
+<link rel="apple-touch-startup-image" href="splash-1242x2688.png"
+  media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)">
+<link rel="apple-touch-startup-image" href="splash-1284x2778.png"
+  media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3)">
+<!-- iOS Splash Screen -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="E-Scale">
+<link rel="apple-touch-icon" href="logobg.png">
+<meta name="theme-color" content="#0b1220">
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('service-worker.js')
+        .catch(err => console.log('ServiceWorker falhou:', err));
+    });
+  }
+</script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>E-Scale — Contacto</title>
+  <link rel="icon" href="logobg.png" type="image/png">
+  <meta name="description" content="Fale connosco — E-Scale, agência digital para pequenas empresas em Portugal.">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b1220;--bg2:#061024;
+      --accent1:#6ee7b7;--accent2:#22d3ee;
+      --muted:#94a3b8;--text:#e6eef8;
+      font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial;
+      color-scheme:dark;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      background:linear-gradient(180deg,var(--bg2) 0%,var(--bg) 60%);
+      color:var(--text);font-size:17px;opacity:0;transition:opacity .35s ease;
+    }
+    body.page-loaded{opacity:1}
+    a{color:var(--accent1);text-decoration:none;transition:.25s}
+    a:hover{filter:brightness(1.08)}
+    .container{max-width:760px;margin:0 auto;padding:0 20px}
+
+    /* NAVBAR */
+    header{position:sticky;top:0;z-index:50}
+    .navwrap{
+      backdrop-filter:blur(14px);
+      background:rgba(10,16,30,.55);
+      border-bottom:1px solid rgba(255,255,255,.12);
+      padding:10px 0;
+    }
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .brand{display:flex;align-items:center;gap:10px}
+    .brand img{height:42px;width:42px;border-radius:10px;object-fit:contain}
+    nav ul{display:flex;gap:14px;list-style:none}
+    nav a{color:var(--text);padding:8px 12px;border-radius:10px}
+    nav a:hover{background:rgba(255,255,255,.08);box-shadow:0 0 12px rgba(34,211,238,.35)}
+
+    .btn{
+      padding:10px 14px;
+      background:linear-gradient(90deg,var(--accent1),var(--accent2));
+      color:#042022;border-radius:12px;font-weight:600;
+      transition:.25s;cursor:pointer;border:none;
+    }
+    .btn:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 0 18px rgba(34,211,238,.4)}
+
+    /* FORM */
+    main{padding:80px 0}
+    h1{font-size:38px;line-height:1.2;margin-bottom:10px;font-weight:800}
+    p.lede{color:var(--muted);margin-bottom:28px}
+    form{display:grid;gap:14px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:24px;box-shadow:0 6px 20px rgba(0,0,0,.4)}
+    input,textarea,select{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);padding:12px;border-radius:10px;color:inherit;font:inherit;width:100%}
+    textarea{min-height:120px}/* --- SELECT com estilo vidro translúcido E-Scale --- */
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(110, 231, 183, 0.25);
+  border-radius: 12px;
+  color: var(--text);
+  font: inherit;
+  padding: 12px 44px 12px 14px;
+  cursor: pointer;
+  transition: all .25s ease;
+  backdrop-filter: blur(8px);
+  box-shadow: inset 0 0 10px rgba(255,255,255,0.05),
+              0 0 12px rgba(34,211,238,0.08);
+  background-image: url("data:image/svg+xml;utf8,<svg fill='%236ee7b7' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path d='M5.516 7.548l4.484 4.906 4.484-4.906z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 16px;
+}
+
+select:hover {
+  border-color: rgba(34,211,238,0.5);
+  box-shadow: inset 0 0 12px rgba(34,211,238,0.15),
+              0 0 14px rgba(110,231,183,0.15);
+}
+
+select:focus {
+  outline: none;
+  border-color: var(--accent2);
+  box-shadow: 0 0 18px rgba(34,211,238,0.25),
+              inset 0 0 14px rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.12);
+}
+
+/* Corrige o contraste das opções abertas */
+select option {
+  background-color: #0b1220;
+  color: #e6eef8;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+}
+
+    label{font-weight:600;margin-bottom:4px;color:var(--text)}
+    .hidden{display:none}
+    .success-box{text-align:center;padding:60px 20px}
+    .success-box h2{color:var(--accent1);margin-bottom:12px}
+    .success-box p{color:var(--muted);margin-bottom:22px}
+
+    /* MOBILE MENU */
+    .hamb{display:none;background:none;border:0;color:#fff;font-size:26px;cursor:pointer}
+    .drawer{position:fixed;inset:0;pointer-events:none}
+    .backdrop{position:absolute;inset:0;background:rgba(0,0,0,.45);opacity:0;transition:.25s}
+    .panel{position:absolute;left:0;top:0;bottom:0;width:80%;max-width:360px;background:#0b1220;
+      transform:translateX(-100%);transition:.25s;border-right:1px solid rgba(255,255,255,.1)}
+    .drawer.open{pointer-events:auto}.drawer.open .backdrop{opacity:1}.drawer.open .panel{transform:none}
+    .panel .top{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.08)}
+    .panel nav ul{display:flex;flex-direction:column;padding:10px}
+    .panel nav a{display:block;padding:12px;border-radius:10px;color:var(--text)}
+    @media(max-width:880px){
+      nav ul{display:none}
+      .hamb{display:block}
+    }
+
+    footer{padding:24px 0;color:var(--muted);border-top:1px solid rgba(255,255,255,.06);margin-top:40px;text-align:center}
+	/* --- SELECT personalizado E-Scale --- */
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  color: var(--text);
+  font: inherit;
+  padding: 12px 40px 12px 12px;
+  background-image: linear-gradient(90deg, var(--accent1), var(--accent2));
+  background-repeat: no-repeat;
+  background-size: 1px 100%;
+  background-position: right 12px center;
+  transition: all .25s ease;
+  cursor: pointer;
+}
+
+/* Ícone da seta custom */
+select::-ms-expand { display: none; }
+
+select:hover {
+  border-color: rgba(110,231,183,0.25);
+  box-shadow: 0 0 10px rgba(110,231,183,0.15);
+}
+
+select:focus {
+  outline: none;
+  border-color: var(--accent2);
+  box-shadow: 0 0 16px rgba(34,211,238,0.25);
+  background-image: linear-gradient(90deg, var(--accent2), var(--accent1));
+}
+
+  </style>
+</head>
+<body>
+  <!-- Drawer (menu mobile) -->
+  <div class="drawer" id="drawer">
+    <div class="backdrop" id="backdrop"></div>
+    <aside class="panel">
+      <div class="top">
+        <strong>E-Scale</strong>
+        <button id="closeDrawer" style="background:none;border:0;color:#fff;font-size:22px;cursor:pointer">✕</button>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="index.html" onclick="closeDrawer()">Início</a></li>
+          <li><a href="servicos.html" onclick="closeDrawer()">Planos</a></li>
+          <li><a href="contacto.html" onclick="closeDrawer()">Contacto</a></li>
+        </ul>
+      </nav>
+    </aside>
+  </div>
+
+  <!-- NAVBAR -->
+  <header>
+    <div class="navwrap">
+      <div class="container nav">
+        <a href="index.html" class="brand" data-router>
+          <img src="logobg.png" alt="E-Scale">
+          <div>
+            <div style="font-weight:800">E-Scale</div>
+            <div style="font-size:12px;color:var(--muted)">Escala a tua presença, aumenta o teu impacto</div>
+          </div>
+        </a>
+        <nav>
+          <ul>
+            <li><a href="index.html">Início</a></li>
+            <li><a href="servicos.html">Planos</a></li>
+            <li><a href="contacto.html" aria-current="page">Contacto</a></li>
+          </ul>
+        </nav>
+        <div style="display:flex;align-items:center;gap:10px">
+          <a class="btn" href="questionario.html" data-router>Diagnóstico gratuito</a>
+          <button class="hamb" id="openDrawer">☰</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <h1>Fale connosco</h1>
+    <p class="lede">Estamos prontos para ajudar o teu negócio a crescer. Preenche o formulário e responderemos em 1–2 dias úteis.</p>
+
+    <form id="contactForm" action="https://formspree.io/f/mkgqejwr" method="POST" onsubmit="handleSubmit(event)">
+      <input type="text" name="nome" placeholder="Nome" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <select name="assunto" required>
+        <option value="">Assunto</option>
+        <option>Orçamento</option>
+        <option>Parceria</option>
+        <option>Dúvida geral</option>
+      </select>
+      <textarea name="mensagem" placeholder="Escreve a tua mensagem..." required></textarea>
+      <button class="btn" type="submit">Enviar mensagem</button>
+    </form>
+	
+
+    <div id="successBox" class="hidden success-box">
+      <h2>✅ Enviado com sucesso!</h2>
+      <p>Entraremos em contacto brevemente.</p>
+      <a href="index.html" class="btn">Voltar à página inicial</a>
+    </div>
+  </main>
+
+  <footer>
+    © <span id="year"></span> E-Scale — Escala a tua presença, aumenta o teu impacto
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    window.addEventListener('load',()=>document.body.classList.add('page-loaded'));
+
+    async function handleSubmit(e){
+      e.preventDefault();
+      const form=e.target;
+      const data=new FormData(form);
+      const r=await fetch(form.action,{method:'POST',body:data,headers:{'Accept':'application/json'}});
+      if(r.ok){
+        form.classList.add('hidden');
+        document.getElementById('successBox').classList.remove('hidden');
+      }else alert('Erro ao enviar. Tenta novamente.');
+    }
+
+    // Drawer mobile
+    const drawer=document.getElementById('drawer');
+    const backdrop=document.getElementById('backdrop');
+    const openBtn=document.getElementById('openDrawer');
+    const closeBtn=document.getElementById('closeDrawer');
+    function openDrawer(){drawer.classList.add('open');}
+    function closeDrawer(){drawer.classList.remove('open');}
+    openBtn.addEventListener('click',openDrawer);
+    closeBtn.addEventListener('click',closeDrawer);
+    backdrop.addEventListener('click',closeDrawer);
+    drawer.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeDrawer));
+  </script>
+</body>
+</html>
