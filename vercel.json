@@ -1,0 +1,4 @@
+echo '{"framework": "nextjs"}' > vercel.json
+git add vercel.json
+git commit -m "add vercel config"
+git push origin main
