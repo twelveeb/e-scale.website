@@ -1,8 +1,12 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { NAV_LINKS, SOCIAL_LINKS } from "@/lib/constants";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 export function Footer() {
+  const { t } = useLanguage();
   return (
     <footer className="bg-black border-t border-white/[0.04]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-16 pb-8">
@@ -16,8 +20,7 @@ export function Footer() {
               <span className="font-bold text-white text-lg">E-Scale</span>
             </Link>
             <p className="text-white/50 text-sm leading-relaxed mb-6">
-              Construímos sistemas digitais que transformam visibilidade em
-              faturação real.
+              {t.footer.tagline}
             </p>
             <div className="flex items-center gap-3">
               {SOCIAL_LINKS.map((s) => (
@@ -51,7 +54,7 @@ export function Footer() {
           {/* Navigation */}
           <div>
             <h3 className="text-white font-semibold text-sm mb-4 tracking-wide">
-              Navegação
+              {t.footer.navigation}
             </h3>
             <ul className="space-y-3">
               {NAV_LINKS.slice(0, 4).map((link) => (
@@ -62,7 +65,7 @@ export function Footer() {
                       link.highlight ? "text-green-400 hover:text-green-300" : "text-white/50"
                     }`}
                   >
-                    {link.label}
+                    {t.nav[link.key]}
                   </Link>
                 </li>
               ))}
@@ -71,7 +74,7 @@ export function Footer() {
 
           <div>
             <h3 className="text-white font-semibold text-sm mb-4 tracking-wide">
-              Empresa
+              {t.footer.company}
             </h3>
             <ul className="space-y-3">
               {NAV_LINKS.slice(4).map((link) => (
@@ -82,7 +85,7 @@ export function Footer() {
                       link.highlight ? "text-green-400 hover:text-green-300" : "text-white/50"
                     }`}
                   >
-                    {link.label}
+                    {t.nav[link.key]}
                   </Link>
                 </li>
               ))}
@@ -92,7 +95,7 @@ export function Footer() {
           {/* Parceiros */}
           <div>
             <h3 className="text-white font-semibold text-sm mb-4 tracking-wide">
-              Parceiros
+              {t.footer.partners}
             </h3>
             <a
               href="https://ikaruspay.com"
@@ -112,7 +115,7 @@ export function Footer() {
                 <p className="text-white text-sm font-medium group-hover:text-green-400 transition-colors">
                   Ikarus Pay
                 </p>
-                <p className="text-white/40 text-xs">Parceiro oficial</p>
+                <p className="text-white/40 text-xs">{t.footer.partnerOfficial}</p>
               </div>
               <svg
                 className="ml-auto text-white/20 group-hover:text-green-400/60 transition-colors"
@@ -130,7 +133,7 @@ export function Footer() {
             </a>
 
             <div className="mt-6">
-              <p className="text-white/40 text-xs mb-2">Contacto</p>
+              <p className="text-white/40 text-xs mb-2">{t.footer.contactLabel}</p>
               <a
                 href="mailto:geral@escale.pt"
                 className="text-white/60 text-sm hover:text-white transition-colors"
@@ -144,14 +147,14 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-white/[0.04] flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-white/30 text-xs">
-            © 2026 E-Scale. Todos os direitos reservados.
+            {t.footer.rights}
           </p>
           <div className="flex items-center gap-6">
             <Link href="/privacidade" className="text-white/30 text-xs hover:text-white/60 transition-colors">
-              Privacidade
+              {t.footer.privacy}
             </Link>
             <Link href="/termos" className="text-white/30 text-xs hover:text-white/60 transition-colors">
-              Termos
+              {t.footer.terms}
             </Link>
           </div>
         </div>

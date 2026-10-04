@@ -2,6 +2,7 @@
 
 import { ThemeProvider } from "next-themes";
 import { useEffect } from "react";
+import { LanguageProvider } from "@/lib/i18n/LanguageContext";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
@@ -11,7 +12,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
       enableSystem={false}
       disableTransitionOnChange={false}
     >
-      <LenisProvider>{children}</LenisProvider>
+      <LanguageProvider>
+        <LenisProvider>{children}</LenisProvider>
+      </LanguageProvider>
     </ThemeProvider>
   );
 }

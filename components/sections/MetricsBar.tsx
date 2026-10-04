@@ -2,7 +2,8 @@
 
 import { useRef, useEffect, useState } from "react";
 import { motion, useInView } from "framer-motion";
-import { METRICS } from "@/lib/constants";
+import { METRIC_VALUES } from "@/lib/constants";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 function CountUp({ target, suffix = "" }: { target: string; suffix?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -46,6 +47,7 @@ function CountUp({ target, suffix = "" }: { target: string; suffix?: string }) {
 }
 
 export function MetricsBar() {
+  const { t } = useLanguage();
   return (
     <section
       className="relative border-t border-b"
@@ -56,7 +58,7 @@ export function MetricsBar() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-0">
-          {METRICS.map((metric, i) => (
+          {t.metrics.map((metric, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 20 }}
@@ -77,7 +79,7 @@ export function MetricsBar() {
                 className="font-mono text-3xl sm:text-4xl font-bold mb-2 text-gradient"
                 style={{ fontFamily: "var(--font-geist-mono)" }}
               >
-                <CountUp target={metric.value} />
+                <CountUp target={METRIC_VALUES[i]} />
               </div>
               <p
                 className="text-xs sm:text-sm uppercase tracking-wide"

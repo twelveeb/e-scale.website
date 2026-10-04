@@ -3,51 +3,19 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { staggerContainer, fadeUpVariants, cardVariants } from "@/lib/animations";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
+import { METRIC_VALUES } from "@/lib/constants";
 
-const CASES = [
-  {
-    client: "Clínica Estética Lisboa",
-    industry: "Saúde & Beleza",
-    service: "Sistema de Aquisição",
-    result: "+340% ROAS",
-    metric1: { label: "Leads/semana", value: "42" },
-    metric2: { label: "Custo por lead", value: "€1.90" },
-    story: "Em 3 meses transformámos uma presença digital inexistente num pipeline de 42 leads semanais com custo por lead abaixo de €2.",
-    color: "#60A5FA",
-  },
-  {
-    client: "Restaurante Porta da Serra",
-    industry: "Restauração",
-    service: "Infraestrutura de Conteúdo",
-    result: "3× reservas",
-    metric1: { label: "Alcance mensal", value: "85K" },
-    metric2: { label: "Reservas online", value: "+180%" },
-    story: "Conteúdo estratégico que transformou um restaurante local numa referência digital no sector da restauração em Portugal.",
-    color: "#A78BFA",
-  },
-  {
-    client: "Academia Fitness Pro",
-    industry: "Desporto & Fitness",
-    service: "Pipeline de Conversão",
-    result: "4.8× ROAS",
-    metric1: { label: "Novos membros", value: "89" },
-    metric2: { label: "Retenção", value: "94%" },
-    story: "Funnel completo de aquisição que trouxe 89 novos membros em 60 dias com uma taxa de retenção de 94%.",
-    color: "#34D399",
-  },
-  {
-    client: "Consultora B2B Tech",
-    industry: "Tecnologia",
-    service: "Sistema de Autoridade",
-    result: "+280% visibilidade",
-    metric1: { label: "LinkedIn followers", value: "+1.2K" },
-    metric2: { label: "Leads qualificados", value: "28/mês" },
-    story: "Posicionamento como referência no sector tech português, com 28 leads B2B qualificados por mês.",
-    color: "#F59E0B",
-  },
+const CASE_COLORS = ["#60A5FA", "#A78BFA", "#34D399", "#F59E0B"];
+const CASE_METRIC_VALUES = [
+  ["42", "€1.90"],
+  ["85K", "+180%"],
+  ["89", "94%"],
+  ["+1.2K", "28/mês"],
 ];
 
 export function CasosPage() {
+  const { t } = useLanguage();
   return (
     <div className="pt-24 pb-32" style={{ background: "var(--bg)" }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-16">
@@ -59,21 +27,21 @@ export function CasosPage() {
           className="text-center mb-20"
         >
           <motion.p variants={fadeUpVariants} className="tag mb-4">
-            Resultados reais
+            {t.casos.tag}
           </motion.p>
           <motion.h1
             variants={fadeUpVariants}
             className="text-4xl sm:text-6xl font-black mb-6"
             style={{ color: "var(--text-primary)" }}
           >
-            Casos de sucesso
+            {t.casos.title}
           </motion.h1>
           <motion.p
             variants={fadeUpVariants}
             className="text-lg max-w-2xl mx-auto"
             style={{ color: "var(--text-secondary)" }}
           >
-            Números reais de clientes reais. Sem promessas vazias.
+            {t.casos.subtitle}
           </motion.p>
         </motion.div>
 
@@ -85,18 +53,18 @@ export function CasosPage() {
           viewport={{ once: true, margin: "-60px" }}
           className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-20"
         >
-          {CASES.map((c, i) => (
+          {t.casos.cases.map((c, i) => (
             <motion.div
               key={i}
               variants={cardVariants}
               className="p-8 rounded-2xl border overflow-hidden relative"
               style={{ background: "var(--glass-bg)", borderColor: "var(--glass-border)" }}
-              whileHover={{ borderColor: `${c.color}40` }}
+              whileHover={{ borderColor: `${CASE_COLORS[i]}40` }}
             >
               {/* Glow accent */}
               <div
                 className="absolute top-0 right-0 w-32 h-32 rounded-full blur-2xl opacity-10 pointer-events-none"
-                style={{ background: c.color }}
+                style={{ background: CASE_COLORS[i] }}
               />
 
               <div className="relative z-10">
@@ -105,7 +73,7 @@ export function CasosPage() {
                   <div>
                     <span
                       className="inline-block text-xs font-semibold px-2.5 py-1 rounded-full mb-2"
-                      style={{ background: `${c.color}15`, color: c.color, fontFamily: "var(--font-geist-mono)" }}
+                      style={{ background: `${CASE_COLORS[i]}15`, color: CASE_COLORS[i], fontFamily: "var(--font-geist-mono)" }}
                     >
                       {c.industry}
                     </span>
@@ -114,7 +82,7 @@ export function CasosPage() {
                   </div>
                   <div
                     className="text-xl font-black shrink-0 ml-4"
-                    style={{ color: c.color, fontFamily: "var(--font-geist-mono)" }}
+                    style={{ color: CASE_COLORS[i], fontFamily: "var(--font-geist-mono)" }}
                   >
                     {c.result}
                   </div>
@@ -127,7 +95,10 @@ export function CasosPage() {
 
                 {/* Metrics */}
                 <div className="grid grid-cols-2 gap-4 pt-4 border-t" style={{ borderColor: "var(--border-color)" }}>
-                  {[c.metric1, c.metric2].map((m) => (
+                  {[
+                    { label: c.metric1Label, value: CASE_METRIC_VALUES[i][0] },
+                    { label: c.metric2Label, value: CASE_METRIC_VALUES[i][1] },
+                  ].map((m) => (
                     <div key={m.label}>
                       <div
                         className="text-xl font-bold"
@@ -152,19 +123,14 @@ export function CasosPage() {
           className="p-10 sm:p-16 rounded-3xl border text-center mb-12"
           style={{ background: "var(--surface)", borderColor: "var(--border-color)" }}
         >
-          <p className="tag mb-6">Impacto total</p>
+          <p className="tag mb-6">{t.casos.impactTag}</p>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 mb-8">
-            {[
-              { v: "€2.4M+", l: "Receita gerada" },
-              { v: "340%", l: "ROAS médio" },
-              { v: "127+", l: "Campanhas" },
-              { v: "98%", l: "Retenção" },
-            ].map((s) => (
-              <div key={s.l}>
+            {t.casos.impactStats.map((label, i) => (
+              <div key={label}>
                 <div className="text-3xl font-black text-gradient mb-1" style={{ fontFamily: "var(--font-geist-mono)" }}>
-                  {s.v}
+                  {METRIC_VALUES[i]}
                 </div>
-                <p className="text-sm" style={{ color: "var(--text-secondary)" }}>{s.l}</p>
+                <p className="text-sm" style={{ color: "var(--text-secondary)" }}>{label}</p>
               </div>
             ))}
           </div>
@@ -172,7 +138,7 @@ export function CasosPage() {
             href="/contacto"
             className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-semibold transition-all duration-200 hover:shadow-[0_0_30px_-6px_rgba(37,99,235,0.8)]"
           >
-            O teu negócio é o próximo
+            {t.casos.ctaBtn}
           </Link>
         </motion.div>
       </div>

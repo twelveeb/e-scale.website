@@ -1,9 +1,10 @@
 "use client";
 
 import { motion, useMotionValue, useTransform } from "framer-motion";
-import { SERVICES } from "@/lib/constants";
+import { SERVICE_ICONS } from "@/lib/constants";
 import { staggerContainer, fadeUpVariants, cardVariants } from "@/lib/animations";
 import { cn } from "@/lib/utils";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 import {
   Target,
   Layers,
@@ -16,9 +17,11 @@ const ICONS = { Target, Layers, TrendingUp, Crown, Zap };
 
 function ServiceCard({
   service,
+  icon,
   index,
 }: {
-  service: (typeof SERVICES)[number];
+  service: { title: string; description: string; metric: string };
+  icon: string;
   index: number;
 }) {
   const x = useMotionValue(0);
@@ -37,7 +40,7 @@ function ServiceCard({
     y.set(0);
   };
 
-  const Icon = ICONS[service.icon as keyof typeof ICONS] || Target;
+  const Icon = ICONS[icon as keyof typeof ICONS] || Target;
 
   return (
     <motion.div
@@ -115,6 +118,7 @@ function ServiceCard({
 }
 
 export function ServicesSection() {
+  const { t } = useLanguage();
   return (
     <section className="section-padding" style={{ background: "var(--bg)" }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -127,7 +131,7 @@ export function ServicesSection() {
           className="text-center mb-16"
         >
           <motion.p variants={fadeUpVariants} className="tag mb-4">
-            O que construímos
+            {t.servicesSection.tag}
           </motion.p>
           <motion.h2
             variants={fadeUpVariants}
@@ -137,14 +141,14 @@ export function ServicesSection() {
               color: "var(--text-primary)",
             }}
           >
-            Os nossos sistemas
+            {t.servicesSection.title}
           </motion.h2>
           <motion.p
             variants={fadeUpVariants}
             className="max-w-lg mx-auto text-base sm:text-lg"
             style={{ color: "var(--text-secondary)" }}
           >
-            Não vendemos serviços. Construímos infraestrutura.
+            {t.servicesSection.subtitle}
           </motion.p>
         </motion.div>
 
@@ -156,8 +160,8 @@ export function ServicesSection() {
           viewport={{ once: true, margin: "-60px" }}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
         >
-          {SERVICES.map((service, i) => (
-            <ServiceCard key={service.id} service={service} index={i} />
+          {t.services.map((service, i) => (
+            <ServiceCard key={i} service={service} icon={SERVICE_ICONS[i]} index={i} />
           ))}
         </motion.div>
       </div>

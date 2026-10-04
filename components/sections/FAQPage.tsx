@@ -2,17 +2,16 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FAQ_ITEMS } from "@/lib/constants";
 import { staggerContainer, fadeUpVariants } from "@/lib/animations";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 import Link from "next/link";
 
-const CATEGORIES = ["Geral", "Serviços", "Preços", "Dropshipping AO"];
-
 export function FAQPage() {
-  const [activeCategory, setActiveCategory] = useState("Geral");
+  const { t } = useLanguage();
+  const [activeCategory, setActiveCategory] = useState(0);
   const [openItem, setOpenItem] = useState<number | null>(0);
 
-  const items = FAQ_ITEMS.find((f) => f.category === activeCategory)?.items || [];
+  const items = t.faqItems[activeCategory]?.items || [];
 
   return (
     <div className="pt-24 pb-32" style={{ background: "var(--bg)" }}>
@@ -25,38 +24,38 @@ export function FAQPage() {
           className="text-center mb-16"
         >
           <motion.p variants={fadeUpVariants} className="tag mb-4">
-            Perguntas frequentes
+            {t.faqPage.tag}
           </motion.p>
           <motion.h1
             variants={fadeUpVariants}
             className="text-4xl sm:text-5xl font-black mb-6"
             style={{ color: "var(--text-primary)" }}
           >
-            FAQ
+            {t.faqPage.title}
           </motion.h1>
           <motion.p variants={fadeUpVariants} style={{ color: "var(--text-secondary)" }}>
-            Tudo o que precisas saber sobre a E-Scale e os nossos serviços.
+            {t.faqPage.subtitle}
           </motion.p>
         </motion.div>
 
         {/* Category tabs */}
         <div className="flex flex-wrap gap-2 mb-10 justify-center">
-          {CATEGORIES.map((cat) => (
+          {t.faqPage.categories.map((cat, i) => (
             <button
               key={cat}
-              onClick={() => { setActiveCategory(cat); setOpenItem(0); }}
+              onClick={() => { setActiveCategory(i); setOpenItem(0); }}
               className="px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 cursor-pointer"
               style={{
-                background: activeCategory === cat
-                  ? (cat === "Dropshipping AO" ? "rgba(39,174,96,0.15)" : "rgba(37,99,235,0.15)")
+                background: activeCategory === i
+                  ? (i === 3 ? "rgba(39,174,96,0.15)" : "rgba(37,99,235,0.15)")
                   : "var(--glass-bg)",
                 borderWidth: 1,
                 borderStyle: "solid",
-                borderColor: activeCategory === cat
-                  ? (cat === "Dropshipping AO" ? "rgba(39,174,96,0.4)" : "rgba(37,99,235,0.4)")
+                borderColor: activeCategory === i
+                  ? (i === 3 ? "rgba(39,174,96,0.4)" : "rgba(37,99,235,0.4)")
                   : "var(--glass-border)",
-                color: activeCategory === cat
-                  ? (cat === "Dropshipping AO" ? "#27AE60" : "var(--accent-electric)")
+                color: activeCategory === i
+                  ? (i === 3 ? "#27AE60" : "var(--accent-electric)")
                   : "var(--text-secondary)",
               }}
             >
@@ -136,16 +135,16 @@ export function FAQPage() {
           style={{ background: "var(--surface)", borderColor: "var(--border-color)" }}
         >
           <h3 className="text-xl font-bold mb-2" style={{ color: "var(--text-primary)" }}>
-            Ainda tens dúvidas?
+            {t.faqPage.stillTitle}
           </h3>
           <p className="mb-6 text-sm" style={{ color: "var(--text-secondary)" }}>
-            Fala connosco directamente. Respondemos em menos de 24 horas.
+            {t.faqPage.stillDesc}
           </p>
           <Link
             href="/contacto"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm transition-all duration-200 hover:shadow-[0_0_20px_-4px_rgba(37,99,235,0.8)]"
           >
-            Enviar mensagem
+            {t.faqPage.sendMessage}
           </Link>
         </motion.div>
       </div>

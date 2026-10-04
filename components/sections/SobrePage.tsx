@@ -3,41 +3,12 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { staggerContainer, fadeUpVariants, slideInLeft, slideInRight } from "@/lib/animations";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
-const VALUES = [
-  {
-    title: "Resultados, não relatórios",
-    desc: "Medimos o nosso sucesso em faturação gerada para os nossos clientes — não em likes ou impressões.",
-  },
-  {
-    title: "Sistemas, não serviços",
-    desc: "Construímos infraestrutura digital que trabalha 24/7, não serviços mensais que param quando o contrato acaba.",
-  },
-  {
-    title: "Transparência radical",
-    desc: "Dashboard em tempo real, relatórios semanais honestos e comunicação directa. Sem surpresas.",
-  },
-  {
-    title: "Parceria real",
-    desc: "Não somos fornecedores — somos o departamento de marketing que o teu negócio merecia ter desde o início.",
-  },
-];
-
-const TIMELINE = [
-  { year: "2022", event: "Fundação da E-Scale em Lisboa" },
-  { year: "2023", event: "Primeiros €500K gerados para clientes" },
-  { year: "2024", event: "Expansão para o mercado angolano via Ikarus Pay" },
-  { year: "2025", event: "€2.4M+ gerados · 127+ campanhas activas" },
-  { year: "2026", event: "Sistema de Escala Automatizada lançado" },
-];
-
-const MANIFESTO_LINES = [
-  "Não somos uma agência.",
-  "Somos o sistema de crescimento",
-  "que o teu negócio precisa.",
-];
+const STATS_VALUES = ["€2.4M+", "127+", "98%", "4 anos"];
 
 export function SobrePage() {
+  const { t } = useLanguage();
   return (
     <div className="pt-24 pb-32" style={{ background: "var(--bg)" }}>
       {/* Manifesto Hero */}
@@ -49,9 +20,9 @@ export function SobrePage() {
           className="max-w-4xl"
         >
           <motion.p variants={fadeUpVariants} className="tag mb-8">
-            A nossa história
+            {t.sobre.tag}
           </motion.p>
-          {MANIFESTO_LINES.map((line, i) => (
+          {t.sobre.manifestoLines.map((line, i) => (
             <motion.h1
               key={i}
               variants={fadeUpVariants}
@@ -70,9 +41,7 @@ export function SobrePage() {
             className="mt-8 text-lg sm:text-xl max-w-2xl leading-relaxed"
             style={{ color: "var(--text-secondary)" }}
           >
-            Nascemos da frustração com agências que prometem resultados e entregam
-            relatórios. Decidimos construir algo diferente: sistemas digitais que
-            trabalham todos os dias, independentemente de quem os opera.
+            {t.sobre.intro}
           </motion.p>
         </motion.div>
       </section>
@@ -84,12 +53,7 @@ export function SobrePage() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {[
-              { v: "€2.4M+", l: "Receita gerada" },
-              { v: "127+", l: "Campanhas activas" },
-              { v: "98%", l: "Taxa de retenção" },
-              { v: "4 anos", l: "De crescimento" },
-            ].map((s, i) => (
+            {t.sobre.statsLabels.map((label, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 20 }}
@@ -99,9 +63,9 @@ export function SobrePage() {
                 className="text-center"
               >
                 <div className="text-3xl font-black text-gradient mb-1" style={{ fontFamily: "var(--font-geist-mono)" }}>
-                  {s.v}
+                  {STATS_VALUES[i]}
                 </div>
-                <p className="text-sm" style={{ color: "var(--text-secondary)" }}>{s.l}</p>
+                <p className="text-sm" style={{ color: "var(--text-secondary)" }}>{label}</p>
               </motion.div>
             ))}
           </div>
@@ -117,18 +81,15 @@ export function SobrePage() {
             whileInView="visible"
             viewport={{ once: true }}
           >
-            <p className="tag mb-4">Missão</p>
+            <p className="tag mb-4">{t.sobre.missionTag}</p>
             <h2 className="text-3xl sm:text-4xl font-bold mb-6" style={{ color: "var(--text-primary)" }}>
-              Tornar o crescimento digital acessível e previsível.
+              {t.sobre.missionTitle}
             </h2>
             <p className="leading-relaxed mb-4" style={{ color: "var(--text-secondary)" }}>
-              Acreditamos que qualquer negócio com um produto bom merece um
-              sistema de marketing que funcione. O problema nunca é o produto —
-              é a ausência de sistema.
+              {t.sobre.missionP1}
             </p>
             <p className="leading-relaxed" style={{ color: "var(--text-secondary)" }}>
-              Construímos esse sistema. Para PMEs, negócios locais, clínicas e
-              empreendedores que querem crescer de forma sustentável e escalável.
+              {t.sobre.missionP2}
             </p>
           </motion.div>
 
@@ -139,7 +100,7 @@ export function SobrePage() {
             viewport={{ once: true }}
             className="grid grid-cols-1 sm:grid-cols-2 gap-4"
           >
-            {VALUES.map((v, i) => (
+            {t.sobre.values.map((v, i) => (
               <div
                 key={i}
                 className="p-6 rounded-2xl border"
@@ -168,9 +129,9 @@ export function SobrePage() {
             viewport={{ once: true }}
             className="mb-12"
           >
-            <p className="tag mb-4">Percurso</p>
+            <p className="tag mb-4">{t.sobre.timelineTag}</p>
             <h2 className="text-3xl sm:text-4xl font-bold" style={{ color: "var(--text-primary)" }}>
-              A nossa linha do tempo
+              {t.sobre.timelineTitle}
             </h2>
           </motion.div>
 
@@ -182,7 +143,7 @@ export function SobrePage() {
             />
 
             <div className="flex flex-col gap-8">
-              {TIMELINE.map((item, i) => (
+              {t.sobre.timeline.map((item, i) => (
                 <motion.div
                   key={i}
                   initial={{ opacity: 0, x: i % 2 === 0 ? -30 : 30 }}
@@ -226,16 +187,16 @@ export function SobrePage() {
           viewport={{ once: true }}
         >
           <h2 className="text-3xl sm:text-4xl font-bold mb-6" style={{ color: "var(--text-primary)" }}>
-            Vamos crescer juntos?
+            {t.sobre.ctaTitle}
           </h2>
           <p className="text-lg mb-8 max-w-lg mx-auto" style={{ color: "var(--text-secondary)" }}>
-            Fala connosco e descobre como podemos construir o teu sistema de crescimento.
+            {t.sobre.ctaDesc}
           </p>
           <Link
             href="/contacto"
             className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-semibold transition-all duration-200 hover:shadow-[0_0_30px_-6px_rgba(37,99,235,0.8)]"
           >
-            Marcar Chamada
+            {t.sobre.ctaBtn}
           </Link>
         </motion.div>
       </section>

@@ -2,21 +2,15 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { SERVICES } from "@/lib/constants";
+import { SERVICE_ICONS } from "@/lib/constants";
 import { staggerContainer, fadeUpVariants, cardVariants } from "@/lib/animations";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { Target, Layers, TrendingUp, Crown, Zap, ArrowRight } from "lucide-react";
 
 const ICONS = { Target, Layers, TrendingUp, Crown, Zap };
 
-const FEATURES = [
-  ["Estratégia personalizada", "Funis de conversão", "Copy que converte", "Optimização contínua"],
-  ["Calendário editorial", "Copy + Design", "Carrosséis e Reels", "Distribuição multicanal"],
-  ["Landing pages de alta conversão", "Email automation", "Retargeting avançado", "A/B testing"],
-  ["Posicionamento de marca", "SEO de autoridade", "PR digital", "Gestão de reputação"],
-  ["Automações de CRM", "Relatórios semanais", "Dashboard em tempo real", "Escalabilidade sem equipa"],
-];
-
 export function ServicesPage() {
+  const { t } = useLanguage();
   return (
     <div className="pt-24 pb-32" style={{ background: "var(--bg)" }}>
       {/* Header */}
@@ -27,29 +21,28 @@ export function ServicesPage() {
         className="max-w-7xl mx-auto px-4 sm:px-6 pt-16 pb-20 text-center"
       >
         <motion.p variants={fadeUpVariants} className="tag mb-4">
-          O que construímos
+          {t.servicesPage.tag}
         </motion.p>
         <motion.h1
           variants={fadeUpVariants}
           className="mb-6"
           style={{ fontSize: "clamp(36px, 6vw, 72px)", color: "var(--text-primary)" }}
         >
-          Os nossos sistemas
+          {t.servicesPage.title}
         </motion.h1>
         <motion.p
           variants={fadeUpVariants}
           className="text-lg sm:text-xl max-w-2xl mx-auto mb-10"
           style={{ color: "var(--text-secondary)" }}
         >
-          Cada sistema foi construído para resolver um problema concreto e
-          entregar resultados mensuráveis — não apenas atividade no digital.
+          {t.servicesPage.subtitle}
         </motion.p>
         <motion.div variants={fadeUpVariants}>
           <Link
             href="/auditoria"
             className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-semibold transition-all duration-200 hover:shadow-[0_0_30px_-6px_rgba(37,99,235,0.8)]"
           >
-            Pedir Auditoria Gratuita
+            {t.servicesPage.ctaAudit}
             <ArrowRight size={16} />
           </Link>
         </motion.div>
@@ -63,13 +56,13 @@ export function ServicesPage() {
         viewport={{ once: true, margin: "-60px" }}
         className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col gap-6"
       >
-        {SERVICES.map((service, i) => {
-          const Icon = ICONS[service.icon as keyof typeof ICONS] || Target;
-          const features = FEATURES[i] || [];
+        {t.servicesPage.features.map((features, i) => {
+          const service = t.services[i];
+          const Icon = ICONS[SERVICE_ICONS[i] as keyof typeof ICONS] || Target;
 
           return (
             <motion.div
-              key={service.id}
+              key={i}
               variants={cardVariants}
               className="p-8 sm:p-10 rounded-2xl border"
               style={{ background: "var(--glass-bg)", borderColor: "var(--glass-border)" }}
@@ -146,24 +139,24 @@ export function ServicesPage() {
             style={{ background: "radial-gradient(ellipse 60% 50% at 50% 0%, rgba(37,99,235,0.08) 0%, transparent 70%)" }}
           />
           <h2 className="text-2xl sm:text-4xl font-bold mb-4 relative z-10" style={{ color: "var(--text-primary)" }}>
-            Pronto para escalar?
+            {t.servicesPage.ctaTitle}
           </h2>
           <p className="text-lg mb-8 relative z-10" style={{ color: "var(--text-secondary)" }}>
-            Fala connosco e descobre qual sistema se adapta melhor ao teu negócio.
+            {t.servicesPage.ctaSubtitle}
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 relative z-10">
             <Link
               href="/contacto"
               className="px-8 py-4 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-semibold transition-all duration-200 hover:shadow-[0_0_30px_-6px_rgba(37,99,235,0.8)]"
             >
-              Marcar Chamada
+              {t.servicesPage.ctaCall}
             </Link>
             <Link
               href="/auditoria"
               className="px-8 py-4 rounded-full border font-semibold transition-all duration-200 hover:bg-white/5"
               style={{ borderColor: "var(--border-color)", color: "var(--text-secondary)" }}
             >
-              Pedir Auditoria
+              {t.servicesPage.ctaAuditBtn}
             </Link>
           </div>
         </div>

@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { staggerContainer, fadeUpVariants } from "@/lib/animations";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 const ParticleField = dynamic(
   () => import("@/components/three/ParticleField").then((m) => m.ParticleField),
@@ -14,6 +15,7 @@ const ParticleField = dynamic(
 );
 
 export function HeroSection() {
+  const { t } = useLanguage();
   return (
     <section className="relative min-h-dvh flex flex-col items-center justify-center overflow-hidden">
       {/* Three.js Background */}
@@ -47,7 +49,7 @@ export function HeroSection() {
         {/* Tag */}
         <motion.div variants={fadeUpVariants} className="mb-8">
           <span className="tag opacity-80">
-            Agência de Crescimento Digital · Portugal
+            {t.hero.tag}
           </span>
         </motion.div>
 
@@ -61,8 +63,8 @@ export function HeroSection() {
             letterSpacing: "-0.05em",
           }}
         >
-          <span className="block text-white">A atenção é</span>
-          <span className="block text-gradient">a nova moeda.</span>
+          <span className="block text-white">{t.hero.h1Line1}</span>
+          <span className="block text-gradient">{t.hero.h1Line2}</span>
         </motion.h1>
 
         {/* Subheadline */}
@@ -76,8 +78,8 @@ export function HeroSection() {
             lineHeight: 1.5,
           }}
         >
-          Construímos sistemas digitais que transformam
-          <br className="hidden sm:block" /> visibilidade em faturação real.
+          {t.hero.subheadline1}
+          <br className="hidden sm:block" /> {t.hero.subheadline2}
         </motion.p>
 
         {/* CTA Group */}
@@ -89,13 +91,13 @@ export function HeroSection() {
             href="/contacto"
             className="group relative px-8 py-4 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-semibold text-base transition-all duration-300 hover:shadow-[0_0_40px_-8px_rgba(37,99,235,0.9)]"
           >
-            <span>Marcar Chamada</span>
+            <span>{t.hero.ctaCall}</span>
           </Link>
           <Link
             href="/auditoria"
             className="px-8 py-4 rounded-full border border-white/20 text-white font-semibold text-base hover:border-white/40 hover:bg-white/5 transition-all duration-300"
           >
-            Pedir Auditoria
+            {t.hero.ctaAudit}
           </Link>
         </motion.div>
       </motion.div>
@@ -107,7 +109,7 @@ export function HeroSection() {
         transition={{ delay: 1.4, duration: 0.6 }}
         className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
       >
-        <span className="tag text-[10px] opacity-40">scroll</span>
+        <span className="tag text-[10px] opacity-40">{t.hero.scroll}</span>
         <motion.div
           animate={{ y: [0, 8, 0] }}
           transition={{ repeat: Infinity, duration: 1.6, ease: "easeInOut" }}
