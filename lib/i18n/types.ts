@@ -1,0 +1,226 @@
+export type Lang = "pt" | "en" | "fr" | "nl" | "es" | "pl";
+
+export interface Dictionary {
+  nav: {
+    home: string;
+    services: string;
+    cases: string;
+    about: string;
+    partnerships: string;
+    dropshippingAO: string;
+    faq: string;
+    contact: string;
+    ctaAudit: string;
+  };
+  footer: {
+    tagline: string;
+    navigation: string;
+    company: string;
+    partners: string;
+    partnerOfficial: string;
+    contactLabel: string;
+    rights: string;
+    privacy: string;
+    terms: string;
+  };
+  hero: {
+    tag: string;
+    h1Line1: string;
+    h1Line2: string;
+    subheadline1: string;
+    subheadline2: string;
+    ctaCall: string;
+    ctaAudit: string;
+    scroll: string;
+  };
+  problem: {
+    tag: string;
+    title: string;
+    subtitle: string;
+  };
+  servicesSection: {
+    tag: string;
+    title: string;
+    subtitle: string;
+  };
+  services: { title: string; description: string; metric: string }[];
+  metrics: { label: string }[];
+  dashboard: {
+    tag: string;
+    title: string;
+    subtitle: string;
+    revenueLabel: string;
+    thisMonth: string;
+    leadsToday: string;
+    live: string;
+    roasLabel: string;
+    reachLabel: string;
+    cplLabel: string;
+    toasts: string[];
+  };
+  audit: {
+    tag: string;
+    title: string;
+    subtitle: string;
+    inputTitle: string;
+    inputDesc: string;
+    placeholder: string;
+    submitBtn: string;
+    analyzing: string;
+    scanLines: string[];
+    critical: string;
+    categories: string[];
+    priorities: string;
+    recommendations: string[];
+    ctaFull: string;
+    newAnalysis: string;
+  };
+  auditoriaPage: {
+    tag: string;
+    title: string;
+    subtitle: string;
+    includesTag: string;
+    includesTitle: string;
+    includes: { title: string; desc: string }[];
+    ctaTitle: string;
+    ctaDesc: string;
+    ctaBtn: string;
+  };
+  casos: {
+    tag: string;
+    title: string;
+    subtitle: string;
+    cases: {
+      client: string;
+      industry: string;
+      service: string;
+      result: string;
+      metric1Label: string;
+      metric2Label: string;
+      story: string;
+    }[];
+    impactTag: string;
+    impactStats: string[];
+    ctaBtn: string;
+  };
+  servicesPage: {
+    tag: string;
+    title: string;
+    subtitle: string;
+    ctaAudit: string;
+    features: string[][];
+    ctaTitle: string;
+    ctaSubtitle: string;
+    ctaCall: string;
+    ctaAuditBtn: string;
+  };
+  sobre: {
+    tag: string;
+    manifestoLines: string[];
+    intro: string;
+    statsLabels: string[];
+    missionTag: string;
+    missionTitle: string;
+    missionP1: string;
+    missionP2: string;
+    values: { title: string; desc: string }[];
+    timelineTag: string;
+    timelineTitle: string;
+    timeline: { year: string; event: string }[];
+    ctaTitle: string;
+    ctaDesc: string;
+    ctaBtn: string;
+  };
+  contacto: {
+    tag: string;
+    title: string;
+    subtitle: string;
+    infoTitle: string;
+    socialTitle: string;
+    responsePrefix: string;
+    responseValue: string;
+    nome: string;
+    nomePlaceholder: string;
+    email: string;
+    emailPlaceholder: string;
+    website: string;
+    websitePlaceholder: string;
+    servico: string;
+    servicoPlaceholder: string;
+    servicesOptions: string[];
+    mensagem: string;
+    mensagemPlaceholder: string;
+    sending: string;
+    submitBtn: string;
+    successTitle: string;
+    successDesc: string;
+  };
+  parcerias: {
+    tag: string;
+    title: string;
+    subtitle: string;
+    badge: string;
+    ikarusName: string;
+    ikarusTagline: string;
+    ikarusDesc: string;
+    features: string[][];
+    ctaPartnership: string;
+    ctaVisit: string;
+    cardTag: string;
+    cardQuote: string;
+    becomeTitle: string;
+    becomeDesc: string;
+    becomeCta: string;
+  };
+  dropshipping: {
+    badge: string;
+    headlineLine1: string;
+    headlineLine2: string;
+    subheadline: string;
+    description: string;
+    ctaStart: string;
+    ctaLearnMore: string;
+    whatIsTag: string;
+    whatIsTitle: string;
+    whatIsP1: string;
+    whatIsP2a: string;
+    whatIsP2b: string;
+    bullets: string[];
+    cardEscaleLine: string;
+    cardIkarusLine: string;
+    tuLabel: string;
+    comissionLabel: string;
+    stepsTag: string;
+    stepsTitle: string;
+    steps: { title: string; desc: string }[];
+    statsLabels: string[];
+    advantagesTitle: string;
+    advantages: { title: string; desc: string }[];
+    partnershipTitle1: string;
+    partnershipTitle2: string;
+    partnershipTitle3: string;
+    partnershipDesc: string;
+    partnershipCta: string;
+    faqTitle: string;
+  };
+  faqPage: {
+    tag: string;
+    title: string;
+    subtitle: string;
+    categories: string[];
+    stillTitle: string;
+    stillDesc: string;
+    sendMessage: string;
+  };
+  faqItems: {
+    category: string;
+    items: { q: string; a: string }[];
+  }[];
+  legal: {
+    termosTitle: string;
+    termosP1: string;
+    privacidadeTitle: string;
+    privacidadeP1: string;
+    contactPrefix: string;
+  };
+}

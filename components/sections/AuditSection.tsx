@@ -4,34 +4,20 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { staggerContainer, fadeUpVariants } from "@/lib/animations";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 type Step = "input" | "scanning" | "results";
 
-const SCAN_LINES = [
-  "A verificar SEO técnico...",
-  "A analisar velocidade de carregamento...",
-  "A auditar redes sociais...",
-  "A verificar estrutura de conteúdo...",
-  "A analisar conversão da landing page...",
-  "A calcular score de autoridade...",
-  "A gerar recomendações...",
-];
-
 const SCORE = 42;
-const CATEGORIES = [
-  { name: "SEO", score: 38, color: "#EF4444" },
-  { name: "Conteúdo", score: 52, color: "#F59E0B" },
-  { name: "Conversão", score: 31, color: "#EF4444" },
-  { name: "Autoridade", score: 47, color: "#F59E0B" },
-];
-
-const RECOMMENDATIONS = [
-  "Optimizar meta tags — detectadas em 6 páginas sem descrição",
-  "Velocidade crítica — página carrega em 5.2s (recomendado: <2s)",
-  "Ausência de call-to-action acima da dobra em 80% das páginas",
+const CATEGORY_META = [
+  { score: 38, color: "#EF4444" },
+  { score: 52, color: "#F59E0B" },
+  { score: 31, color: "#EF4444" },
+  { score: 47, color: "#F59E0B" },
 ];
 
 export function AuditSection() {
+  const { t } = useLanguage();
   const [step, setStep] = useState<Step>("input");
   const [url, setUrl] = useState("");
   const [scanLines, setScanLines] = useState<string[]>([]);
@@ -49,8 +35,8 @@ export function AuditSection() {
 
     // Add lines progressively
     const lineInterval = setInterval(() => {
-      if (lineIndex.current < SCAN_LINES.length) {
-        setScanLines((prev) => [...prev, SCAN_LINES[lineIndex.current]]);
+      if (lineIndex.current < t.audit.scanLines.length) {
+        setScanLines((prev) => [...prev, t.audit.scanLines[lineIndex.current]]);
         lineIndex.current++;
       } else {
         clearInterval(lineInterval);
@@ -91,17 +77,17 @@ export function AuditSection() {
           className="text-center mb-16"
         >
           <motion.p variants={fadeUpVariants} className="tag mb-4">
-            Gratuito
+            {t.audit.tag}
           </motion.p>
           <motion.h2
             variants={fadeUpVariants}
             className="mb-4"
             style={{ fontSize: "clamp(28px, 4.5vw, 52px)", color: "var(--text-primary)" }}
           >
-            Auditoria inteligente
+            {t.audit.title}
           </motion.h2>
           <motion.p variants={fadeUpVariants} style={{ color: "var(--text-secondary)" }}>
-            Analisa a tua presença digital em segundos.
+            {t.audit.subtitle}
           </motion.p>
         </motion.div>
 
@@ -136,17 +122,17 @@ export function AuditSection() {
                     transition={{ duration: 0.3 }}
                   >
                     <h3 className="text-xl font-bold mb-2" style={{ color: "var(--text-primary)" }}>
-                      Introduz o teu website
+                      {t.audit.inputTitle}
                     </h3>
                     <p className="text-sm mb-6" style={{ color: "var(--text-secondary)" }}>
-                      Analisamos SEO, velocidade, conversão e autoridade digital.
+                      {t.audit.inputDesc}
                     </p>
                     <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
                       <input
                         type="url"
                         value={url}
                         onChange={(e) => setUrl(e.target.value)}
-                        placeholder="https://www.teusite.pt"
+                        placeholder={t.audit.placeholder}
                         required
                         className="flex-1 px-4 py-3 rounded-xl border text-base outline-none focus:border-blue-500 transition-colors"
                         style={{
@@ -159,7 +145,7 @@ export function AuditSection() {
                         type="submit"
                         className="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold whitespace-nowrap transition-all duration-200 hover:shadow-[0_0_20px_-4px_rgba(37,99,235,0.8)]"
                       >
-                        Analisar agora
+                        {t.audit.submitBtn}
                       </button>
                     </form>
                   </motion.div>
@@ -177,7 +163,7 @@ export function AuditSection() {
                     <div className="flex items-center gap-3 mb-6">
                       <div className="w-2 h-2 rounded-full bg-blue-400 animate-[pulse-dot_1s_ease-in-out_infinite]" />
                       <p className="text-sm font-semibold" style={{ color: "var(--accent-electric)", fontFamily: "var(--font-geist-mono)" }}>
-                        A analisar {url}
+                        {t.audit.analyzing} {url}
                       </p>
                     </div>
 
@@ -256,41 +242,44 @@ export function AuditSection() {
                             <span className="text-xs" style={{ color: "var(--text-muted)" }}>/100</span>
                           </div>
                         </div>
-                        <span className="text-xs mt-2 font-semibold text-red-400">Crítico</span>
+                        <span className="text-xs mt-2 font-semibold text-red-400">{t.audit.critical}</span>
                       </div>
 
                       {/* Categories */}
                       <div className="flex-1 grid grid-cols-2 gap-3 w-full">
-                        {CATEGORIES.map((cat) => (
-                          <div key={cat.name}>
-                            <div className="flex justify-between items-center mb-1">
-                              <span className="text-xs" style={{ color: "var(--text-secondary)", fontFamily: "var(--font-geist-mono)" }}>
-                                {cat.name}
-                              </span>
-                              <span className="text-xs font-bold" style={{ color: cat.color, fontFamily: "var(--font-geist-mono)" }}>
-                                {cat.score}
-                              </span>
+                        {t.audit.categories.map((catName, i) => {
+                          const cat = CATEGORY_META[i];
+                          return (
+                            <div key={catName}>
+                              <div className="flex justify-between items-center mb-1">
+                                <span className="text-xs" style={{ color: "var(--text-secondary)", fontFamily: "var(--font-geist-mono)" }}>
+                                  {catName}
+                                </span>
+                                <span className="text-xs font-bold" style={{ color: cat.color, fontFamily: "var(--font-geist-mono)" }}>
+                                  {cat.score}
+                                </span>
+                              </div>
+                              <div className="h-1 rounded-full" style={{ background: "var(--border-color)" }}>
+                                <motion.div
+                                  className="h-full rounded-full"
+                                  style={{ background: cat.color }}
+                                  initial={{ width: 0 }}
+                                  animate={{ width: `${cat.score}%` }}
+                                  transition={{ duration: 0.8, delay: 0.2 }}
+                                />
+                              </div>
                             </div>
-                            <div className="h-1 rounded-full" style={{ background: "var(--border-color)" }}>
-                              <motion.div
-                                className="h-full rounded-full"
-                                style={{ background: cat.color }}
-                                initial={{ width: 0 }}
-                                animate={{ width: `${cat.score}%` }}
-                                transition={{ duration: 0.8, delay: 0.2 }}
-                              />
-                            </div>
-                          </div>
-                        ))}
+                          );
+                        })}
                       </div>
                     </div>
 
                     {/* Recommendations */}
                     <div className="mb-6">
                       <p className="text-xs font-semibold mb-3" style={{ color: "var(--text-secondary)", fontFamily: "var(--font-geist-mono)", letterSpacing: "0.08em" }}>
-                        PRIORIDADES
+                        {t.audit.priorities}
                       </p>
-                      {RECOMMENDATIONS.map((rec, i) => (
+                      {t.audit.recommendations.map((rec, i) => (
                         <div key={i} className="flex gap-3 mb-2">
                           <span className="text-red-400 shrink-0 mt-0.5">⚠</span>
                           <p className="text-sm" style={{ color: "var(--text-secondary)" }}>{rec}</p>
@@ -304,14 +293,14 @@ export function AuditSection() {
                         href="/auditoria"
                         className="flex-1 text-center py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold transition-all duration-200 hover:shadow-[0_0_20px_-4px_rgba(37,99,235,0.8)]"
                       >
-                        Quero o relatório completo
+                        {t.audit.ctaFull}
                       </Link>
                       <button
                         onClick={() => { setStep("input"); setUrl(""); }}
                         className="px-4 py-3 rounded-xl border text-sm font-medium transition-colors hover:bg-white/5"
                         style={{ borderColor: "var(--border-color)", color: "var(--text-secondary)" }}
                       >
-                        Nova análise
+                        {t.audit.newAnalysis}
                       </button>
                     </div>
                   </motion.div>

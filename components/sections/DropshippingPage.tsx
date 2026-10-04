@@ -4,24 +4,11 @@ import { motion, useInView } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useRef, useEffect, useState } from "react";
-import { DROPSHIPPING_STEPS, FAQ_ITEMS } from "@/lib/constants";
 import { staggerContainer, fadeUpVariants, cardVariants } from "@/lib/animations";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
-const ADVANTAGES = [
-  { icon: "📦", title: "Sem armazém", desc: "Nenhum stock físico necessário. Zero custos de armazenagem." },
-  { icon: "📋", title: "Catálogo gerido", desc: "Centenas de produtos geridos pela Ikarus Pay." },
-  { icon: "🚚", title: "Logística incluída", desc: "Entrega em Angola gerida 100% pela Ikarus Pay." },
-  { icon: "📢", title: "Marketing profissional", desc: "Estratégia completa de aquisição pela E-Scale." },
-  { icon: "🛡️", title: "Zero risco", desc: "Sem investimento inicial. Começas sem perder nada." },
-  { icon: "🎧", title: "Suporte completo", desc: "Equipa dedicada disponível para ti 24/7." },
-];
-
-const STATS = [
-  { value: "12M+", label: "Consumidores online em Angola" },
-  { value: "€0", label: "Investimento inicial" },
-  { value: "40%", label: "Comissão máxima por venda" },
-  { value: "24/7", label: "Suporte dedicado" },
-];
+const ADVANTAGE_ICONS = ["📦", "📋", "🚚", "📢", "🛡️", "🎧"];
+const STAT_VALUES = ["12M+", "€0", "40%", "24/7"];
 
 function CountUpStat({ value, label }: { value: string; label: string }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -58,7 +45,8 @@ function CountUpStat({ value, label }: { value: string; label: string }) {
 }
 
 export function DropshippingPage() {
-  const dropFaqs = FAQ_ITEMS.find((f) => f.category === "Dropshipping AO")?.items || [];
+  const { t } = useLanguage();
+  const dropFaqs = t.faqItems.find((f) => f.category === "Dropshipping AO")?.items || [];
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   return (
@@ -87,7 +75,7 @@ export function DropshippingPage() {
           <motion.div variants={fadeUpVariants} className="mb-8">
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-green-500/30 bg-green-500/10 text-green-400 text-xs font-semibold tracking-wide">
               <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-              Parceria Oficial E-Scale × Ikarus Pay
+              {t.dropshipping.badge}
             </span>
           </motion.div>
 
@@ -108,9 +96,9 @@ export function DropshippingPage() {
             className="leading-tight mb-4"
             style={{ fontSize: "clamp(40px, 7vw, 88px)", fontWeight: 800, letterSpacing: "-0.04em", color: "#fff" }}
           >
-            Vende online
+            {t.dropshipping.headlineLine1}
             <br />
-            em Angola.
+            {t.dropshipping.headlineLine2}
           </motion.h1>
 
           <motion.p
@@ -118,7 +106,7 @@ export function DropshippingPage() {
             className="text-xl sm:text-2xl font-semibold mb-4"
             style={{ color: "#27AE60" }}
           >
-            Sem armazém. Sem risco. Com suporte.
+            {t.dropshipping.subheadline}
           </motion.p>
 
           <motion.p
@@ -126,8 +114,7 @@ export function DropshippingPage() {
             className="text-base sm:text-lg max-w-xl mx-auto mb-10"
             style={{ color: "rgba(255,255,255,0.5)" }}
           >
-            A parceria que junta o marketing da E-Scale com a logística da
-            Ikarus Pay para criares um negócio online em Angola.
+            {t.dropshipping.description}
           </motion.p>
 
           <motion.div variants={fadeUpVariants} className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -138,14 +125,14 @@ export function DropshippingPage() {
               className="px-8 py-4 rounded-full font-semibold text-white transition-all duration-300 hover:shadow-[0_0_40px_-8px_rgba(39,174,96,0.9)]"
               style={{ background: "#27AE60" }}
             >
-              Começar agora
+              {t.dropshipping.ctaStart}
             </a>
             <Link
               href="#como-funciona"
               className="px-8 py-4 rounded-full border font-semibold transition-all duration-200 hover:bg-white/5"
               style={{ borderColor: "rgba(255,255,255,0.2)", color: "rgba(255,255,255,0.7)" }}
             >
-              Saber mais
+              {t.dropshipping.ctaLearnMore}
             </Link>
           </motion.div>
         </motion.div>
@@ -165,27 +152,21 @@ export function DropshippingPage() {
               viewport={{ once: true }}
               transition={{ duration: 0.7 }}
             >
-              <p className="tag mb-4" style={{ color: "#27AE60" }}>O que é</p>
+              <p className="tag mb-4" style={{ color: "#27AE60" }}>{t.dropshipping.whatIsTag}</p>
               <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-white">
-                Dropshipping AO em Angola
+                {t.dropshipping.whatIsTitle}
               </h2>
               <p className="text-base leading-relaxed mb-4" style={{ color: "rgba(255,255,255,0.55)" }}>
-                O Dropshipping AO é um modelo de negócio onde vendes produtos
-                online em Angola sem nunca precisares de ter stock ou armazém.
+                {t.dropshipping.whatIsP1}
               </p>
               <p className="text-base leading-relaxed mb-6" style={{ color: "rgba(255,255,255,0.55)" }}>
-                A <span style={{ color: "#27AE60", fontWeight: 600 }}>Ikarus Pay</span> trata do catálogo,
-                da logística e da entrega. A{" "}
-                <span style={{ color: "#60A5FA", fontWeight: 600 }}>E-Scale</span> cria a tua estratégia
-                de marketing, anúncios e aquisição de clientes. Tu ficas com a comissão.
+                <span style={{ color: "#27AE60", fontWeight: 600 }}>Ikarus Pay</span>{" "}
+                {t.dropshipping.whatIsP2a}{" "}
+                <span style={{ color: "#60A5FA", fontWeight: 600 }}>E-Scale</span>{" "}
+                {t.dropshipping.whatIsP2b}
               </p>
               <div className="flex flex-col gap-3">
-                {[
-                  "Zero investimento inicial",
-                  "Catálogo gerido pela Ikarus Pay",
-                  "Marketing gerido pela E-Scale",
-                  "Comissão por cada venda realizada",
-                ].map((item) => (
+                {t.dropshipping.bullets.map((item) => (
                   <div key={item} className="flex items-center gap-3">
                     <span className="w-5 h-5 rounded-full flex items-center justify-center shrink-0" style={{ background: "rgba(39,174,96,0.15)", border: "1px solid rgba(39,174,96,0.3)" }}>
                       <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#27AE60" strokeWidth="3">
@@ -215,7 +196,7 @@ export function DropshippingPage() {
                   </div>
                   <div>
                     <div className="text-white font-semibold text-sm">E-Scale</div>
-                    <div className="text-xs" style={{ color: "#60A5FA" }}>Marketing · Anúncios · Aquisição</div>
+                    <div className="text-xs" style={{ color: "#60A5FA" }}>{t.dropshipping.cardEscaleLine}</div>
                   </div>
                 </div>
                 <div className="flex items-center gap-4 mb-6">
@@ -224,7 +205,7 @@ export function DropshippingPage() {
                   </div>
                   <div>
                     <div className="text-white font-semibold text-sm">Ikarus Pay</div>
-                    <div className="text-xs" style={{ color: "#27AE60" }}>Catálogo · Logística · Entrega</div>
+                    <div className="text-xs" style={{ color: "#27AE60" }}>{t.dropshipping.cardIkarusLine}</div>
                   </div>
                 </div>
                 <div
@@ -233,10 +214,10 @@ export function DropshippingPage() {
                 />
                 <div className="text-center">
                   <div className="text-4xl font-black text-white mb-1" style={{ fontFamily: "var(--font-geist-mono)" }}>
-                    TU
+                    {t.dropshipping.tuLabel}
                   </div>
                   <div className="text-sm font-semibold" style={{ color: "#27AE60" }}>
-                    Ficas com a comissão
+                    {t.dropshipping.comissionLabel}
                   </div>
                 </div>
               </div>
@@ -259,16 +240,16 @@ export function DropshippingPage() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <p className="tag mb-4" style={{ color: "#27AE60" }}>Como funciona</p>
+            <p className="tag mb-4" style={{ color: "#27AE60" }}>{t.dropshipping.stepsTag}</p>
             <h2 className="text-3xl sm:text-4xl font-bold text-white">
-              4 passos para começar
+              {t.dropshipping.stepsTitle}
             </h2>
           </motion.div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {DROPSHIPPING_STEPS.map((step, i) => (
+            {t.dropshipping.steps.map((step, i) => (
               <motion.div
-                key={step.step}
+                key={i}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -276,7 +257,7 @@ export function DropshippingPage() {
                 className="relative"
               >
                 {/* Connector line */}
-                {i < DROPSHIPPING_STEPS.length - 1 && (
+                {i < t.dropshipping.steps.length - 1 && (
                   <div
                     className="absolute top-6 left-full w-full h-px hidden lg:block"
                     style={{ background: "linear-gradient(90deg, rgba(39,174,96,0.4), transparent)", zIndex: 0 }}
@@ -295,7 +276,7 @@ export function DropshippingPage() {
                       fontFamily: "var(--font-geist-mono)",
                     }}
                   >
-                    {step.step}
+                    {i + 1}
                   </div>
                   <h3 className="text-sm font-bold mb-2 text-white">{step.title}</h3>
                   <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
@@ -315,8 +296,8 @@ export function DropshippingPage() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            {STATS.map((s, i) => (
-              <CountUpStat key={i} value={s.value} label={s.label} />
+            {t.dropshipping.statsLabels.map((label, i) => (
+              <CountUpStat key={i} value={STAT_VALUES[i]} label={label} />
             ))}
           </div>
         </div>
@@ -332,7 +313,7 @@ export function DropshippingPage() {
             className="text-center mb-16"
           >
             <h2 className="text-3xl sm:text-4xl font-bold text-white">
-              Porquê o Dropshipping AO?
+              {t.dropshipping.advantagesTitle}
             </h2>
           </motion.div>
           <motion.div
@@ -342,7 +323,7 @@ export function DropshippingPage() {
             viewport={{ once: true }}
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
           >
-            {ADVANTAGES.map((adv, i) => (
+            {t.dropshipping.advantages.map((adv, i) => (
               <motion.div
                 key={i}
                 variants={cardVariants}
@@ -350,7 +331,7 @@ export function DropshippingPage() {
                 style={{ background: "rgba(255,255,255,0.02)", borderColor: "rgba(255,255,255,0.06)" }}
                 whileHover={{ borderColor: "rgba(39,174,96,0.3)", background: "rgba(39,174,96,0.03)" }}
               >
-                <span className="text-3xl mb-4 block">{adv.icon}</span>
+                <span className="text-3xl mb-4 block">{ADVANTAGE_ICONS[i]}</span>
                 <h3 className="text-sm font-bold mb-2 text-white">{adv.title}</h3>
                 <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>{adv.desc}</p>
               </motion.div>
@@ -392,14 +373,14 @@ export function DropshippingPage() {
               </div>
 
               <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">
-                E-Scale traz os clientes.
+                {t.dropshipping.partnershipTitle1}
                 <br />
-                <span style={{ color: "#27AE60" }}>Ikarus entrega.</span>
+                <span style={{ color: "#27AE60" }}>{t.dropshipping.partnershipTitle2}</span>
                 <br />
-                Tu ficas com o lucro.
+                {t.dropshipping.partnershipTitle3}
               </h2>
               <p className="text-base mb-8" style={{ color: "rgba(255,255,255,0.5)" }}>
-                Junta-te à parceria e começa a vender online em Angola hoje.
+                {t.dropshipping.partnershipDesc}
               </p>
               <a
                 href="https://ikaruspay.com"
@@ -408,7 +389,7 @@ export function DropshippingPage() {
                 className="inline-flex items-center gap-2 px-8 py-4 rounded-full font-semibold text-white transition-all duration-300 hover:shadow-[0_0_40px_-8px_rgba(39,174,96,0.9)]"
                 style={{ background: "#27AE60" }}
               >
-                Começar agora — Grátis
+                {t.dropshipping.partnershipCta}
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
                   <polyline points="15 3 21 3 21 9" />
@@ -429,7 +410,7 @@ export function DropshippingPage() {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl font-bold text-white">Perguntas frequentes</h2>
+            <h2 className="text-3xl font-bold text-white">{t.dropshipping.faqTitle}</h2>
           </motion.div>
           <div className="flex flex-col gap-3">
             {dropFaqs.map((faq, i) => (

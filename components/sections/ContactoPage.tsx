@@ -4,18 +4,10 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { staggerContainer, fadeUpVariants, slideInLeft, slideInRight } from "@/lib/animations";
 import { SOCIAL_LINKS, CONTACT_INFO } from "@/lib/constants";
-
-const SERVICES_OPTIONS = [
-  "Sistema de Aquisição",
-  "Infraestrutura de Conteúdo",
-  "Pipeline de Conversão",
-  "Sistema de Autoridade",
-  "Escala Automatizada",
-  "Dropshipping AO",
-  "Outro",
-];
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 export function ContactoPage() {
+  const { t } = useLanguage();
   const [formData, setFormData] = useState({
     nome: "",
     email: "",
@@ -51,22 +43,21 @@ export function ContactoPage() {
           className="mb-16"
         >
           <motion.p variants={fadeUpVariants} className="tag mb-4">
-            Fala connosco
+            {t.contacto.tag}
           </motion.p>
           <motion.h1
             variants={fadeUpVariants}
             className="text-4xl sm:text-6xl font-black mb-6"
             style={{ color: "var(--text-primary)" }}
           >
-            Vamos crescer juntos.
+            {t.contacto.title}
           </motion.h1>
           <motion.p
             variants={fadeUpVariants}
             className="text-lg max-w-lg"
             style={{ color: "var(--text-secondary)" }}
           >
-            Conta-nos o teu negócio e o que pretendes alcançar. Respondemos em
-            menos de 24 horas.
+            {t.contacto.subtitle}
           </motion.p>
         </motion.div>
 
@@ -81,7 +72,7 @@ export function ContactoPage() {
           >
             <div className="mb-10">
               <h2 className="text-lg font-bold mb-6" style={{ color: "var(--text-primary)" }}>
-                Informação de contacto
+                {t.contacto.infoTitle}
               </h2>
               <div className="flex flex-col gap-4">
                 <a
@@ -114,7 +105,7 @@ export function ContactoPage() {
 
             <div>
               <h2 className="text-sm font-semibold mb-4" style={{ color: "var(--text-secondary)", letterSpacing: "0.08em", fontFamily: "var(--font-geist-mono)", textTransform: "uppercase" }}>
-                Redes sociais
+                {t.contacto.socialTitle}
               </h2>
               <div className="flex gap-3">
                 {SOCIAL_LINKS.map((s) => (
@@ -153,9 +144,9 @@ export function ContactoPage() {
             >
               <div className="w-2 h-2 rounded-full bg-green-400 animate-[pulse-dot_1.5s_ease-in-out_infinite] shrink-0" />
               <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
-                Tempo de resposta médio:{" "}
+                {t.contacto.responsePrefix}{" "}
                 <span style={{ color: "var(--text-primary)", fontWeight: 600 }}>
-                  &lt; 24 horas
+                  {t.contacto.responseValue}
                 </span>
               </p>
             </div>
@@ -181,10 +172,10 @@ export function ContactoPage() {
                   </svg>
                 </div>
                 <h2 className="text-2xl font-bold mb-3" style={{ color: "var(--text-primary)" }}>
-                  Mensagem enviada!
+                  {t.contacto.successTitle}
                 </h2>
                 <p style={{ color: "var(--text-secondary)" }}>
-                  Respondemos em menos de 24 horas. Até breve!
+                  {t.contacto.successDesc}
                 </p>
               </motion.div>
             ) : (
@@ -197,14 +188,14 @@ export function ContactoPage() {
                   {/* Nome */}
                   <div>
                     <label className="block text-xs font-medium mb-2" style={{ color: "var(--text-secondary)", fontFamily: "var(--font-geist-mono)", textTransform: "uppercase", letterSpacing: "0.06em" }}>
-                      Nome *
+                      {t.contacto.nome} *
                     </label>
                     <input
                       type="text"
                       required
                       value={formData.nome}
                       onChange={(e) => setFormData({ ...formData, nome: e.target.value })}
-                      placeholder="O teu nome"
+                      placeholder={t.contacto.nomePlaceholder}
                       className="w-full px-4 py-3 rounded-xl border text-sm outline-none focus:border-blue-500 transition-colors"
                       style={inputStyle}
                     />
@@ -213,14 +204,14 @@ export function ContactoPage() {
                   {/* Email */}
                   <div>
                     <label className="block text-xs font-medium mb-2" style={{ color: "var(--text-secondary)", fontFamily: "var(--font-geist-mono)", textTransform: "uppercase", letterSpacing: "0.06em" }}>
-                      Email *
+                      {t.contacto.email} *
                     </label>
                     <input
                       type="email"
                       required
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      placeholder="email@exemplo.pt"
+                      placeholder={t.contacto.emailPlaceholder}
                       className="w-full px-4 py-3 rounded-xl border text-sm outline-none focus:border-blue-500 transition-colors"
                       style={inputStyle}
                     />
@@ -230,13 +221,13 @@ export function ContactoPage() {
                 {/* Website */}
                 <div className="mb-5">
                   <label className="block text-xs font-medium mb-2" style={{ color: "var(--text-secondary)", fontFamily: "var(--font-geist-mono)", textTransform: "uppercase", letterSpacing: "0.06em" }}>
-                    Website
+                    {t.contacto.website}
                   </label>
                   <input
                     type="url"
                     value={formData.website}
                     onChange={(e) => setFormData({ ...formData, website: e.target.value })}
-                    placeholder="https://www.teusite.pt"
+                    placeholder={t.contacto.websitePlaceholder}
                     className="w-full px-4 py-3 rounded-xl border text-sm outline-none focus:border-blue-500 transition-colors"
                     style={inputStyle}
                   />
@@ -245,7 +236,7 @@ export function ContactoPage() {
                 {/* Serviço */}
                 <div className="mb-5">
                   <label className="block text-xs font-medium mb-2" style={{ color: "var(--text-secondary)", fontFamily: "var(--font-geist-mono)", textTransform: "uppercase", letterSpacing: "0.06em" }}>
-                    O que procuras? *
+                    {t.contacto.servico} *
                   </label>
                   <select
                     required
@@ -254,8 +245,8 @@ export function ContactoPage() {
                     className="w-full px-4 py-3 rounded-xl border text-sm outline-none focus:border-blue-500 transition-colors appearance-none cursor-pointer"
                     style={inputStyle}
                   >
-                    <option value="" disabled>Selecciona um serviço</option>
-                    {SERVICES_OPTIONS.map((s) => (
+                    <option value="" disabled>{t.contacto.servicoPlaceholder}</option>
+                    {t.contacto.servicesOptions.map((s) => (
                       <option key={s} value={s}>{s}</option>
                     ))}
                   </select>
@@ -264,14 +255,14 @@ export function ContactoPage() {
                 {/* Mensagem */}
                 <div className="mb-6">
                   <label className="block text-xs font-medium mb-2" style={{ color: "var(--text-secondary)", fontFamily: "var(--font-geist-mono)", textTransform: "uppercase", letterSpacing: "0.06em" }}>
-                    Mensagem *
+                    {t.contacto.mensagem} *
                   </label>
                   <textarea
                     required
                     rows={5}
                     value={formData.mensagem}
                     onChange={(e) => setFormData({ ...formData, mensagem: e.target.value })}
-                    placeholder="Conta-nos o teu negócio e o que pretendes alcançar..."
+                    placeholder={t.contacto.mensagemPlaceholder}
                     className="w-full px-4 py-3 rounded-xl border text-sm outline-none focus:border-blue-500 transition-colors resize-none"
                     style={inputStyle}
                   />
@@ -287,10 +278,10 @@ export function ContactoPage() {
                       <svg className="animate-spin" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <path d="M21 12a9 9 0 1 1-6.219-8.56" />
                       </svg>
-                      A enviar...
+                      {t.contacto.sending}
                     </>
                   ) : (
-                    "Enviar mensagem"
+                    t.contacto.submitBtn
                   )}
                 </button>
               </form>

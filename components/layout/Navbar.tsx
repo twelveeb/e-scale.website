@@ -6,13 +6,16 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { ThemeToggle } from "./ThemeToggle";
+import { LanguageSwitcher, LanguageSwitcherMobile } from "./LanguageSwitcher";
 import { NAV_LINKS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
+  const { t } = useLanguage();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -85,7 +88,7 @@ export function Navbar() {
                       : {}
                   }
                 >
-                  {link.label}
+                  {t.nav[link.key]}
                   {active && (
                     <motion.span
                       layoutId="nav-indicator"
@@ -99,12 +102,13 @@ export function Navbar() {
 
           {/* Right side */}
           <div className="flex items-center gap-3">
+            <LanguageSwitcher />
             <ThemeToggle />
             <Link
               href="/auditoria"
               className="hidden sm:flex items-center gap-2 px-4 py-2 rounded-full bg-blue-600 hover:bg-blue-500 text-white text-sm font-semibold transition-all duration-200 hover:shadow-[0_0_20px_-4px_rgba(37,99,235,0.8)]"
             >
-              Pedir Auditoria
+              {t.nav.ctaAudit}
             </Link>
 
             {/* Hamburger */}
@@ -203,7 +207,7 @@ export function Navbar() {
                           : {}
                       }
                     >
-                      {link.label}
+                      {t.nav[link.key]}
                       {active && <span className="ml-auto w-1.5 h-1.5 rounded-full bg-blue-500" />}
                     </Link>
                   </motion.div>
@@ -211,13 +215,18 @@ export function Navbar() {
               })}
             </nav>
 
+            {/* Language switcher (mobile grid) */}
+            <div className="px-6 pb-4">
+              <LanguageSwitcherMobile />
+            </div>
+
             {/* CTA */}
             <div className="p-6 border-t" style={{ borderColor: "var(--border-color)" }}>
               <Link
                 href="/auditoria"
                 className="block w-full text-center py-3 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-semibold transition-colors"
               >
-                Pedir Auditoria
+                {t.nav.ctaAudit}
               </Link>
             </div>
           </motion.div>

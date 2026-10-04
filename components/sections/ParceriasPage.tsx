@@ -4,8 +4,10 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { staggerContainer, fadeUpVariants } from "@/lib/animations";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 export function ParceriasPage() {
+  const { t } = useLanguage();
   return (
     <div className="pt-24 pb-32" style={{ background: "var(--bg)" }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-16">
@@ -17,22 +19,21 @@ export function ParceriasPage() {
           className="text-center mb-20"
         >
           <motion.p variants={fadeUpVariants} className="tag mb-4">
-            Ecossistema
+            {t.parcerias.tag}
           </motion.p>
           <motion.h1
             variants={fadeUpVariants}
             className="text-4xl sm:text-6xl font-black mb-6"
             style={{ color: "var(--text-primary)" }}
           >
-            Parceiros
+            {t.parcerias.title}
           </motion.h1>
           <motion.p
             variants={fadeUpVariants}
             className="text-lg max-w-2xl mx-auto"
             style={{ color: "var(--text-secondary)" }}
           >
-            Trabalhamos com parceiros que partilham a nossa visão: sistemas que
-            funcionam de verdade e geram resultados reais.
+            {t.parcerias.subtitle}
           </motion.p>
         </motion.div>
 
@@ -59,7 +60,7 @@ export function ParceriasPage() {
               {/* Badge */}
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-green-500/30 bg-green-500/8 mb-6">
                 <span className="w-1.5 h-1.5 rounded-full bg-green-400" />
-                <span className="text-green-400 text-xs font-semibold tracking-wide">Parceiro Principal</span>
+                <span className="text-green-400 text-xs font-semibold tracking-wide">{t.parcerias.badge}</span>
               </div>
 
               <div className="flex items-center gap-4 mb-6">
@@ -67,25 +68,17 @@ export function ParceriasPage() {
                   <Image src="/Ikaruslg.png" alt="Ikarus Pay" fill className="object-contain p-1" />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold" style={{ color: "var(--text-primary)" }}>Ikarus Pay</h2>
-                  <p className="text-sm" style={{ color: "#27AE60" }}>Plataforma de e-commerce em Angola</p>
+                  <h2 className="text-2xl font-bold" style={{ color: "var(--text-primary)" }}>{t.parcerias.ikarusName}</h2>
+                  <p className="text-sm" style={{ color: "#27AE60" }}>{t.parcerias.ikarusTagline}</p>
                 </div>
               </div>
 
               <p className="text-base leading-relaxed mb-6" style={{ color: "var(--text-secondary)" }}>
-                A Ikarus Pay é a plataforma líder de dropshipping e pagamentos
-                digitais em Angola. Em parceria com a E-Scale, criamos um
-                ecossistema completo que permite a qualquer pessoa vender
-                produtos online em Angola sem armazém ou investimento inicial.
+                {t.parcerias.ikarusDesc}
               </p>
 
               <div className="grid grid-cols-2 gap-4 mb-8">
-                {[
-                  ["Logística completa", "Entrega em toda Angola"],
-                  ["Catálogo gerido", "Centenas de produtos"],
-                  ["Pagamentos seguros", "Processamento local"],
-                  ["Suporte dedicado", "Equipa em Angola"],
-                ].map(([title, desc]) => (
+                {t.parcerias.features.map(([title, desc]) => (
                   <div key={title} className="flex flex-col gap-1">
                     <span className="text-sm font-semibold" style={{ color: "var(--text-primary)" }}>{title}</span>
                     <span className="text-xs" style={{ color: "var(--text-secondary)" }}>{desc}</span>
@@ -99,7 +92,7 @@ export function ParceriasPage() {
                   className="px-6 py-3 rounded-full font-semibold text-white text-sm transition-all duration-200 hover:shadow-[0_0_20px_-4px_rgba(39,174,96,0.8)]"
                   style={{ background: "#27AE60" }}
                 >
-                  Ver parceria completa
+                  {t.parcerias.ctaPartnership}
                 </Link>
                 <a
                   href="https://ikaruspay.com"
@@ -108,7 +101,7 @@ export function ParceriasPage() {
                   className="px-6 py-3 rounded-full border font-semibold text-sm transition-all duration-200 hover:bg-white/5 flex items-center gap-2"
                   style={{ borderColor: "var(--border-color)", color: "var(--text-secondary)" }}
                 >
-                  Visitar Ikarus Pay
+                  {t.parcerias.ctaVisit}
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
                     <polyline points="15 3 21 3 21 9" />
@@ -127,8 +120,8 @@ export function ParceriasPage() {
                 <div className="relative w-20 h-20 mx-auto mb-4 rounded-2xl overflow-hidden bg-white/5 border" style={{ borderColor: "var(--border-color)" }}>
                   <Image src="/Ikaruslg.png" alt="Ikarus Pay" fill className="object-contain p-2" />
                 </div>
-                <h3 className="font-bold mb-1" style={{ color: "var(--text-primary)" }}>Ikarus Pay</h3>
-                <p className="text-xs mb-6" style={{ color: "#27AE60" }}>Parceiro Oficial</p>
+                <h3 className="font-bold mb-1" style={{ color: "var(--text-primary)" }}>{t.parcerias.ikarusName}</h3>
+                <p className="text-xs mb-6" style={{ color: "#27AE60" }}>{t.parcerias.cardTag}</p>
 
                 <div className="flex justify-center items-center gap-3 mb-6">
                   <div className="relative w-8 h-8">
@@ -141,7 +134,7 @@ export function ParceriasPage() {
                 </div>
 
                 <p className="text-xs font-medium" style={{ color: "var(--text-secondary)" }}>
-                  &quot;E-Scale traz os clientes. Ikarus entrega.&quot;
+                  {t.parcerias.cardQuote}
                 </p>
               </div>
             </div>
@@ -157,17 +150,16 @@ export function ParceriasPage() {
           style={{ background: "var(--glass-bg)", borderColor: "var(--glass-border)" }}
         >
           <h2 className="text-2xl font-bold mb-4" style={{ color: "var(--text-primary)" }}>
-            Quer ser parceiro?
+            {t.parcerias.becomeTitle}
           </h2>
           <p className="mb-6 max-w-lg mx-auto" style={{ color: "var(--text-secondary)" }}>
-            Se tens uma plataforma, produto ou serviço complementar ao nosso
-            ecossistema, fala connosco.
+            {t.parcerias.becomeDesc}
           </p>
           <Link
             href="/contacto"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm transition-all duration-200"
           >
-            Entrar em contacto
+            {t.parcerias.becomeCta}
           </Link>
         </motion.div>
       </div>

@@ -3,14 +3,7 @@
 import { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { staggerContainer, fadeUpVariants } from "@/lib/animations";
-
-const TOASTS = [
-  { icon: "🔔", msg: "Novo lead — Clínica Lisboa" },
-  { icon: "🔔", msg: "Campanha atingiu 200 cliques" },
-  { icon: "🔔", msg: "ROAS subiu para 5.1×" },
-  { icon: "🔔", msg: "Novo lead — Estúdio Porto" },
-  { icon: "🔔", msg: "Email aberto — conversão detectada" },
-];
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 function MiniLineChart({ progress }: { progress: number }) {
   const points = [0, 18, 10, 32, 25, 48, 38, 60, 52, 75, 68, 90, 82, 100];
@@ -53,6 +46,7 @@ function MiniLineChart({ progress }: { progress: number }) {
 }
 
 export function DashboardSection() {
+  const { t } = useLanguage();
   const [chartProgress, setChartProgress] = useState(0);
   const [leads, setLeads] = useState(17);
   const [roas, setRoas] = useState(4.2);
@@ -99,8 +93,8 @@ export function DashboardSection() {
   useEffect(() => {
     const interval = setInterval(() => {
       if (!inView.current) return;
-      const t = TOASTS[toastIndex.current % TOASTS.length];
-      setToast({ id: Date.now(), msg: t.msg, icon: t.icon });
+      const msg = t.dashboard.toasts[toastIndex.current % t.dashboard.toasts.length];
+      setToast({ id: Date.now(), msg, icon: "🔔" });
       toastIndex.current++;
       setTimeout(() => setToast(null), 3500);
     }, 5000);
@@ -136,17 +130,17 @@ export function DashboardSection() {
           className="text-center mb-16"
         >
           <motion.p variants={fadeUpVariants} className="tag mb-4">
-            Ao vivo
+            {t.dashboard.tag}
           </motion.p>
           <motion.h2
             variants={fadeUpVariants}
             className="mb-4"
             style={{ fontSize: "clamp(28px, 4.5vw, 52px)", color: "var(--text-primary)" }}
           >
-            Resultados em tempo real
+            {t.dashboard.title}
           </motion.h2>
           <motion.p variants={fadeUpVariants} style={{ color: "var(--text-secondary)" }}>
-            O que acontece enquanto não estás a ver.
+            {t.dashboard.subtitle}
           </motion.p>
         </motion.div>
 
@@ -166,7 +160,7 @@ export function DashboardSection() {
             <div className="flex items-start justify-between mb-2">
               <div>
                 <p className="text-sm font-medium" style={{ color: "var(--text-secondary)" }}>
-                  Receita gerada
+                  {t.dashboard.revenueLabel}
                 </p>
                 <p className="text-3xl font-bold mt-1 text-gradient" style={{ fontFamily: "var(--font-geist-mono)" }}>
                   €48.2K
@@ -180,7 +174,7 @@ export function DashboardSection() {
               </div>
             </div>
             <p className="text-xs mb-6" style={{ color: "var(--text-secondary)", fontFamily: "var(--font-geist-mono)", letterSpacing: "0.05em" }}>
-              Este mês · Actualizado há 2min
+              {t.dashboard.thisMonth}
             </p>
             <div className="h-24">
               <MiniLineChart progress={chartProgress} />
@@ -196,7 +190,7 @@ export function DashboardSection() {
             >
               <div>
                 <p className="text-xs mb-1" style={{ color: "var(--text-secondary)", fontFamily: "var(--font-geist-mono)" }}>
-                  Leads hoje
+                  {t.dashboard.leadsToday}
                 </p>
                 <p className="text-2xl font-bold" style={{ color: "var(--text-primary)", fontFamily: "var(--font-geist-mono)" }}>
                   {leads}
@@ -204,7 +198,7 @@ export function DashboardSection() {
               </div>
               <div className="flex items-center gap-1.5">
                 <div className="w-2 h-2 rounded-full bg-green-400 animate-[pulse-dot_1.5s_ease-in-out_infinite]" />
-                <span className="text-xs text-green-400">ao vivo</span>
+                <span className="text-xs text-green-400">{t.dashboard.live}</span>
               </div>
             </div>
 
@@ -215,7 +209,7 @@ export function DashboardSection() {
             >
               <div>
                 <p className="text-xs mb-1" style={{ color: "var(--text-secondary)", fontFamily: "var(--font-geist-mono)" }}>
-                  ROAS campanha
+                  {t.dashboard.roasLabel}
                 </p>
                 <p className="text-2xl font-bold text-gradient" style={{ fontFamily: "var(--font-geist-mono)" }}>
                   {roas.toFixed(1)}×
@@ -234,7 +228,7 @@ export function DashboardSection() {
             >
               <div>
                 <p className="text-xs mb-1" style={{ color: "var(--text-secondary)", fontFamily: "var(--font-geist-mono)" }}>
-                  Alcance semanal
+                  {t.dashboard.reachLabel}
                 </p>
                 <p className="text-2xl font-bold" style={{ color: "var(--text-primary)", fontFamily: "var(--font-geist-mono)" }}>
                   {formatReach(reach)}
@@ -255,7 +249,7 @@ export function DashboardSection() {
             >
               <div>
                 <p className="text-xs mb-1" style={{ color: "var(--text-secondary)", fontFamily: "var(--font-geist-mono)" }}>
-                  Custo por lead
+                  {t.dashboard.cplLabel}
                 </p>
                 <p className="text-2xl font-bold" style={{ color: "var(--text-primary)", fontFamily: "var(--font-geist-mono)" }}>
                   €{cpl.toFixed(2)}
